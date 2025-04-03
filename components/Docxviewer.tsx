@@ -6,10 +6,11 @@ import { Card, CardContent } from '@mui/material';
 
 type DocxViewerProps = {
     fileUrl: string;
+    onPlaceholderFocusChange?: (name: string) => void;
     onPlaceholdersExtracted?: (placeholders: string[]) => void;
 };
 
-const DocxViewer: React.FC<DocxViewerProps> = ({ fileUrl, onPlaceholdersExtracted }) => {
+const DocxViewer: React.FC<DocxViewerProps> = ({ fileUrl, onPlaceholdersExtracted, onPlaceholderFocusChange }) => {
     const [htmlContent, setHtmlContent] = useState<string>('');
     const [placeholders, setPlaceholders] = useState<string[]>([]);
 
@@ -49,13 +50,23 @@ const DocxViewer: React.FC<DocxViewerProps> = ({ fileUrl, onPlaceholdersExtracte
 
                 // Highlight the clicked one
                 el.classList.add('active-placeholder');
+                console.log("click", el.getAttribute('data-placeholder'))
+
+                // Extract placeholder name
+                const name = el.getAttribute('data-placeholder');
+                if (name !== null && onPlaceholderFocusChange)
+                    onPlaceholderFocusChange(name);
+
+                // if (name && typeof onPlaceholderFocusChange === 'function') {
+                //     onPlaceholderFocusChange(name);
+                // }
             });
         });
 
         return () => {
             elements.forEach((el) => el.replaceWith(el.cloneNode(true)));
         };
-    }, [htmlContent]);
+    }, [htmlContent, onPlaceholderFocusChange]);
 
     return (
         <Card sx={{ maxWidth: '960px', margin: '2rem auto', padding: 2 }}>

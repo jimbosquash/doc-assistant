@@ -29,6 +29,40 @@ export default function EditorPage() {
               focused={focused}
               metadata={placeholderMetadata}
             />
+            <div className="space-y-4">
+              {/* Dropdown Panels */}
+              <Dropdown title="Tone">
+                <select className="w-full border p-2 rounded">
+                  <option>Professional</option>
+                  <option>Friendly</option>
+                  <option>Creative</option>
+                </select>
+              </Dropdown>
+
+              <Dropdown title="Audience">
+                <select className="w-full border p-2 rounded">
+                  <option>General</option>
+                  <option>Developers</option>
+                  <option>Executives</option>
+                </select>
+              </Dropdown>
+
+              <Dropdown title="Title Text">
+                <input
+                  className="w-full border p-2 rounded"
+                  value={title}
+                  onChange={(e) => setTitle(e.target.value)}
+                />
+              </Dropdown>
+
+              <Dropdown title="Paragraph Content">
+                <textarea
+                  className="w-full border p-2 rounded h-28"
+                  value={description}
+                  onChange={(e) => setDescription(e.target.value)}
+                />
+              </Dropdown>
+            </div>
           </div>
 
           {/* Middle: Placeholder list (1/3 height) */}
@@ -37,12 +71,16 @@ export default function EditorPage() {
               placeholders={placeholders}
               onSelect={setFocused}
             /> */}
+
+
           </div>
         </div>
 
+
+
         {/* Bottom: Buttons, size to content */}
         <div className="flex justify-end space-x-2 pt-6">
-          <Button variant="outlined">Cancel</Button>
+          {/* <Button variant="outlined">Cancel</Button> */}
           <Button variant="contained">Confirm & Export</Button>
         </div>
       </div>
@@ -52,6 +90,10 @@ export default function EditorPage() {
         <DocxViewer
           fileUrl="/files/Financial_Workflow_Template_Dynamic.docx"
           onPlaceholdersExtracted={setPlaceholders}
+          onPlaceholderFocusChange={(name) => {
+            console.log('focus changed', name);
+            setFocused(name)
+          }}
         // focusedPlaceholder={focused}
         // onPlaceholderEdit={(updated) => setPlaceholderValues(updated)}
         />
@@ -108,39 +150,6 @@ export const placeholderMetadata: Record<string, {
 
 
 
-// <div className="space-y-4">
-// {/* Dropdown Panels */}
-// <Dropdown title="Tone">
-//   <select className="w-full border p-2 rounded">
-//     <option>Professional</option>
-//     <option>Friendly</option>
-//     <option>Creative</option>
-//   </select>
-// </Dropdown>
 
-// <Dropdown title="Audience">
-//   <select className="w-full border p-2 rounded">
-//     <option>General</option>
-//     <option>Developers</option>
-//     <option>Executives</option>
-//   </select>
-// </Dropdown>
-
-// <Dropdown title="Title Text">
-//   <input
-//     className="w-full border p-2 rounded"
-//     value={title}
-//     onChange={(e) => setTitle(e.target.value)}
-//   />
-// </Dropdown>
-
-// <Dropdown title="Paragraph Content">
-//   <textarea
-//     className="w-full border p-2 rounded h-28"
-//     value={description}
-//     onChange={(e) => setDescription(e.target.value)}
-//   />
-// </Dropdown>
-// </div>
 
 

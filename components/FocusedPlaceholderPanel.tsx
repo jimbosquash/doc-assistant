@@ -29,7 +29,8 @@ export const FocusedPlaceholderPanel = ({
     return (
         <div className="space-y-4">
             <h2 className="text-lg font-bold text-gray-800">
-                {meta?.title || "Select a field to edit"}
+                {/* {meta?.title || "Select a field to edit"} */}
+                {focused || "Select a field to edit"}
             </h2>
             <p className="text-sm text-gray-600">
                 {meta?.description || "Click a placeholder in the document to view its options."}
